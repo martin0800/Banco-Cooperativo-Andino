@@ -394,7 +394,7 @@ def menu_operaciones():
                     continue
                 concepto = input('Ingrese concepto: ').strip() or 'Depósito'
                 cuenta, id_transaccion = operacion_service.depositar(numero_cuenta, monto, concepto)
-                print('\\nDepósito realizado correctamente.')
+                print('\nDepósito realizado correctamente.')
                 print(f'Cuenta: {cuenta.numero}')
                 print(f'Nuevo saldo: ${cuenta.saldo:,.0f}')
                 print(f'Transacción registrada: #{id_transaccion}')
@@ -415,7 +415,7 @@ def menu_operaciones():
                 cuenta, id_transaccion = operacion_service.girar(numero_cuenta, monto, concepto)
                 print('\nGiro realizado correctamente.')
                 print(f'Cuenta: {cuenta.numero}')
-                print(f'Nuevo saldo: ')
+                print(f'Nuevo saldo: ${cuenta.saldo:,.0f}')
                 print(f'Transacción registrada: #{id_transaccion}')
             except SaldoInsuficienteError as error:
                 print(f'\nOPERACIÓN BLOQUEADA: {error}')
