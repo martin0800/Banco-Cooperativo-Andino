@@ -298,23 +298,52 @@ Durante las pruebas del sistema se verificaron, entre otros, los siguientes caso
 
 ## Uso de Inteligencia Artificial
 
-Durante el desarrollo del proyecto se utilizó Inteligencia Artificial como herramienta de apoyo al aprendizaje y desarrollo.
 
-La IA se utilizó principalmente para:
+Durante el desarrollo del proyecto se utilizó Inteligencia Artificial como
+herramienta de apoyo al aprendizaje, revisión, desarrollo y documentación.
 
-* Comprender conceptos de Programación Orientada a Objetos.
-* Revisar y explicar errores de código.
-* Apoyar la estructura del proyecto.
-* Sugerir mejoras de validación.
-* Explicar el funcionamiento de SQLite y consultas SQL.
-* Apoyar la implementación y revisión de excepciones.
-* Preparar casos de prueba.
-* Apoyar la documentación del proyecto.
+### Decisiones tomadas con apoyo de IA
 
-La implementación fue ejecutada, probada y revisada por los integrantes del proyecto.
+#### Adoptado
 
-La Inteligencia Artificial fue utilizada como herramienta de apoyo y no como sustituto de la comprensión del código.
+- Uso de excepciones personalizadas para controlar reglas de negocio.
+- Validación de datos mediante propiedades y setters.
+- Uso de `timeout` y manejo de errores para las consultas a APIs externas.
+- Uso de consultas SQL parametrizadas.
+- Organización del proyecto mediante modelos, DAO, servicios y excepciones.
+- Apoyo en la creación de casos de prueba y revisión de errores.
 
+#### Modificado
+
+- Las sugerencias de código fueron revisadas y adaptadas a la estructura
+  real del proyecto.
+- Las validaciones y mensajes fueron ajustados después de realizar pruebas
+  manuales.
+- Las soluciones propuestas fueron modificadas cuando no se ajustaban a
+  los requerimientos de la evaluación.
+- El código fue ejecutado y corregido en el entorno local antes de incorporarlo
+  al proyecto.
+
+#### Descartado
+
+- Se descartaron propuestas que no eran necesarias para los requerimientos
+  de la evaluación.
+- No se incorporaron funcionalidades que no fueron probadas.
+- Se descartaron soluciones que aumentaban innecesariamente la complejidad
+  del sistema.
+
+### Criterio de seguridad
+
+El código generado o sugerido con apoyo de IA fue revisado antes de ser
+incorporado al proyecto. Se realizaron pruebas funcionales y se verificaron
+las validaciones, el manejo de excepciones, las consultas SQL parametrizadas
+y el manejo de errores de las APIs externas.
+
+La Inteligencia Artificial fue utilizada como herramienta de apoyo y no como
+sustituto de la comprensión del código por parte de los integrantes.
+
+Los integrantes ejecutaron, probaron y revisaron las funcionalidades antes
+de incorporarlas a la versión final.
 ---
 
 ## Objetivo del proyecto
