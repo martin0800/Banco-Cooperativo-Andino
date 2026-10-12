@@ -4,20 +4,20 @@ from model.indicador_uf import IndicadorUF
 
 class UFService:
 
-    URL = "https://mindicador.cl/api/uf"
+    URL = "https://indicadores.cl/api/v1/uf.json"
 
     @staticmethod
     def obtener_uf():
         try:
-            respuesta = requests.get(UFService.URL, timeout=5)
+            respuesta = requests.get(UFService.URL, timeout=15)
             respuesta.raise_for_status()
 
             datos = respuesta.json()
 
-            if "serie" not in datos or not datos["serie"]:
+            if "valor" not in datos or "fecha" not in datos:
                 raise ValueError("La API no entregó datos de UF.")
 
-            dato = datos["serie"][0]
+            dato = datos
 
             return IndicadorUF(
                 valor=dato["valor"],

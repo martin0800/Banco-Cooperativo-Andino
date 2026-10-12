@@ -99,7 +99,12 @@ def crear_cliente():
         print(f"Mora: {'Sí' if cliente.tiene_mora else 'No'}")
 
     except ValueError as e:
-        print(f"\nError de validación: {e}")
+        if "RUT inválido" in str(e):
+            print("\nRUT inválido.")
+            print("Por favor, ingrese un RUT chileno válido.")
+            print("Ejemplo: 12.345.678-5")
+        else:
+            print(f"\nNo se pudieron validar los datos: {e}")
 
     except Exception as e:
         print(f"\nNo se pudo crear el cliente: {e}")
@@ -361,6 +366,7 @@ def eliminar_cuenta():
 # OPERACIONES BANCARIAS
 # ==========================================================
 
+
 def menu_operaciones():
     cuenta_dao = CuentaDAO()
     transaccion_dao = TransaccionDAO()
@@ -387,59 +393,95 @@ def menu_operaciones():
         if opcion == '1':
             print('\n--- REALIZAR DEPÓSITO ---')
             numero_cuenta = input('Ingrese número de cuenta: ').strip()
+
             try:
-                monto = float(input('Ingrese monto del depósito: ').strip())
-                if monto <= 0:
-                    print('El monto debe ser mayor que cero.')
+                monto_texto = input('Ingrese monto del depósito: ').strip()
+
+                try:
+                    monto = float(monto_texto)
+                except ValueError:
+                    print('\nMonto inválido.')
+                    print('Ingrese solamente números. Ejemplo: 50000')
                     continue
+
+                if monto <= 0:
+                    print('\nEl monto debe ser mayor que cero.')
+                    continue
+
                 concepto = input('Ingrese concepto: ').strip() or 'Depósito'
-                cuenta, id_transaccion = operacion_service.depositar(numero_cuenta, monto, concepto)
+
+                cuenta, id_transaccion = operacion_service.depositar(
+                    numero_cuenta, monto, concepto
+                )
+
                 print('\nDepósito realizado correctamente.')
                 print(f'Cuenta: {cuenta.numero}')
                 print(f'Nuevo saldo: ${cuenta.saldo:,.0f}')
                 print(f'Transacción registrada: #{id_transaccion}')
+
             except ValueError as error:
-                print(f'Error: {error}')
-            except Exception as error:
-                print(f'No se pudo realizar el depósito: {error}')
+                print(f'\nNo se pudo realizar el depósito: {error}')
+            except Exception:
+                print('\nNo se pudo realizar el depósito.')
+                print('Verifique el número de cuenta e inténtelo nuevamente.')
 
         elif opcion == '2':
             print('\n--- REALIZAR GIRO ---')
             numero_cuenta = input('Ingrese número de cuenta: ').strip()
+
             try:
-                monto = float(input('Ingrese monto del giro: ').strip())
-                if monto <= 0:
-                    print('El monto debe ser mayor que cero.')
+                monto_texto = input('Ingrese monto del giro: ').strip()
+
+                try:
+                    monto = float(monto_texto)
+                except ValueError:
+                    print('\nMonto inválido.')
+                    print('Ingrese solamente números. Ejemplo: 50000')
                     continue
+
+                if monto <= 0:
+                    print('\nEl monto debe ser mayor que cero.')
+                    continue
+
                 concepto = input('Ingrese concepto: ').strip() or 'Giro'
-                cuenta, id_transaccion = operacion_service.girar(numero_cuenta, monto, concepto)
+
+                cuenta, id_transaccion = operacion_service.girar(
+                    numero_cuenta, monto, concepto
+                )
+
                 print('\nGiro realizado correctamente.')
                 print(f'Cuenta: {cuenta.numero}')
                 print(f'Nuevo saldo: ${cuenta.saldo:,.0f}')
                 print(f'Transacción registrada: #{id_transaccion}')
+
             except SaldoInsuficienteError as error:
                 print(f'\nOPERACIÓN BLOQUEADA: {error}')
             except ValueError as error:
-                print(f'Error: {error}')
-            except Exception as error:
-                print(f'No se pudo realizar el giro: {error}')
+                print(f'\nNo se pudo realizar el giro: {error}')
+            except Exception:
+                print('\nNo se pudo realizar el giro.')
+                print('Verifique los datos e inténtelo nuevamente.')
 
         elif opcion == '3':
             numero_cuenta = input('Ingrese número de cuenta: ').strip()
+
             try:
                 cuenta = cuenta_dao.buscar_por_numero(numero_cuenta)
+
                 if cuenta is None:
-                    print('La cuenta no existe.')
+                    print('\nLa cuenta no existe.')
                 else:
                     print('\nCuenta encontrada:')
                     print(cuenta)
-            except Exception as error:
-                print(f'Error: {error}')
+
+            except Exception:
+                print('\nNo se pudo consultar la cuenta. Inténtelo nuevamente.')
 
         elif opcion == '0':
             break
+
         else:
-            print('Opción inválida. Intente nuevamente.')
+            print('\nOpción inválida. Seleccione 1, 2, 3 o 0.')
 
 def menu_cartola():
     print("\n--- CARTOLA ---")
